@@ -1,9 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.LoginActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:src="@drawable/img_login_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_200" />
+            <EditText
+                android:id="@+id/btn_login_phone"
+                android:background="@drawable/shape"
+                android:hint="电话"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_30"
+                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_weight="3"
+                android:id="@+id/btn_verify_code"
+                android:background="@drawable/shape"
+                android:hint="验证码"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_40" />
+            <Button
+                android:id="@+id/btn_send"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:textColor="@color/While"
+                android:text="发送"
+                android:background="@color/Login_blue_btn"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_login"
+            android:text="登录"
+            android:textColor="@color/While"
+            android:background="@color/Login_blue_btn"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_agreement"
+            android:src="@drawable/img_login_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="我已阅读并同意"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_user_agreement"
+            android:gravity="center"
+            android:textColor="@color/Login_blue_btn"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="用户协议"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -30,26 +30,39 @@ public class IndexActivity extends AppCompatActivity {
      */
 
     public void startMain(){
-        //判断是不是第一次登录
-        Boolean isFirstLogin = SpUtils.getInstance().getBoolean(Constants.SP_IS_FIRST_APP, true);
-        Intent intent = new Intent();
-        if (isFirstLogin){
-            //跳转到引导页
-            intent.setClass(IndexActivity.this,GuideActivity.class);
-        }else {
-            //不是第一次判断是否登录过
-            String token = SpUtils.getInstance().getString(Constants.SP_TOKE, "");
-            //判断是不是登录过 token有数据就是登录过 空就是没有登录过
-            if (TextUtils.isEmpty(token)){
-                //跳转到登录
-                intent.setClass(IndexActivity.this,LoginActivity.class);
-            }else {
-                //跳转到主页面
-                intent.setClass(IndexActivity.this, MainActivity.class);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                //判断是不是第一次登录
+                Boolean isFirstLogin = SpUtils.getInstance().getBoolean(Constants.SP_IS_FIRST_APP, true);
+                Intent intent = new Intent();
+                if (isFirstLogin){
+                    //跳转到引导页
+                    intent.setClass(IndexActivity.this,GuideActivity.class);
+                }else {
+                    //不是第一次判断是否登录过
+                    String token = SpUtils.getInstance().getString(Constants.SP_TOKE, "");
+                    //判断是不是登录过 token有数据就是登录过 空就是没有登录过
+                    if (TextUtils.isEmpty(token)){
+                        //跳转到登录
+                        intent.setClass(IndexActivity.this,LoginActivity.class);
+                    }else {
+                        //跳转到主页面
+                        intent.setClass(IndexActivity.this, MainActivity.class);
+                    }
+                }
+                startActivity(intent);
+                finish();
             }
-        }
-        startActivity(intent);
-        finish();
+        }).start();
+
+
     }
 
 }

@@ -6,24 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.shuyu.gsyvideoplayer.video.GSYADVideoPlayer
-        android:id="@+id/gdp"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_200"></com.shuyu.gsyvideoplayer.video.GSYADVideoPlayer>
 
-    <com.moxun.tagcloudlib.view.TagCloudView
 
-        android:id="@+id/view"
-
-        android:layout_width="wrap_content"
-
-        android:layout_height="wrap_content"
-
-        android:layout_margin="10dp"
-
-        app:autoScrollMode="uniform"
-
-        app:radiusPercent="0.6"
-
-        app:scrollSpeed="3" />
 </RelativeLayout>
