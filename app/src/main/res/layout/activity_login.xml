@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_200" />
             <EditText
-                android:id="@+id/btn_login_phone"
+                android:id="@+id/et_login_phone"
                 android:background="@drawable/shape"
                 android:hint="电话"
                 android:layout_marginTop="@dimen/dp_30"
@@ -32,7 +32,7 @@
 
             <EditText
                 android:layout_weight="3"
-                android:id="@+id/btn_verify_code"
+                android:id="@+id/et_verify_code"
                 android:background="@drawable/shape"
                 android:hint="验证码"
                 android:layout_width="0dp"
@@ -58,9 +58,21 @@
             android:layout_marginLeft="@dimen/dp_30"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40" />
+
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_gravity="right"
+            android:textSize="@dimen/sp_15"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="注册账号"
+            android:textColor="@color/Login_blue_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginBottom="@dimen/dp_20"
         android:gravity="center"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
@@ -86,5 +98,4 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
 </RelativeLayout>

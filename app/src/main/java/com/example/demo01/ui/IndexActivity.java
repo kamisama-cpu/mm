@@ -44,17 +44,17 @@ public class IndexActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 if (isFirstLogin){
                     //跳转到引导页
-                    intent.setClass(IndexActivity.this,GuideActivity.class);
+                    intent.setClass(IndexActivity.this,LoginActivity.class);
                 }else {
                     //不是第一次判断是否登录过
-                    String token = SpUtils.getInstance().getString(Constants.SP_TOKE, "");
+                    boolean token = SpUtils.getInstance().getBoolean(Constants.SP_TOKE, false);
                     //判断是不是登录过 token有数据就是登录过 空就是没有登录过
-                    if (TextUtils.isEmpty(token)){
-                        //跳转到登录
-                        intent.setClass(IndexActivity.this,LoginActivity.class);
-                    }else {
+                    if (token){
                         //跳转到主页面
                         intent.setClass(IndexActivity.this, MainActivity.class);
+                    }else {
+                        //跳转到登录
+                        intent.setClass(IndexActivity.this,LoginActivity.class);
                     }
                 }
                 startActivity(intent);

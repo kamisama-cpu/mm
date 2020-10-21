@@ -44,4 +44,5 @@ dependencies {
     implementation 'com.squareup.okio:okio:2.2.2'
     implementation 'com.google.code.gson:gson:2.8.5'
 
+    implementation 'com.github.czy1121:loadinglayout:1.0.0'
 }

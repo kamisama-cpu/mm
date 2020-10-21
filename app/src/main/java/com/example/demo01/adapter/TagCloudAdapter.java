@@ -25,7 +25,7 @@ public class TagCloudAdapter extends TagsAdapter {
 
     @Override
     public View getView(final Context context, final int position, ViewGroup parent) {
-        View inflate = View.inflate(context, R.layout.mm, null);
+        View inflate = View.inflate(context, R.layout.tag_cloud_layout, null);
         TextView viewById = inflate.findViewById(R.id.text);
         viewById.setOnClickListener(new View.OnClickListener() {
             @Override

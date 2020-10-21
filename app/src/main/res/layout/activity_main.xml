@@ -6,6 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-
+   <FrameLayout
+       android:layout_above="@id/radio"
+       android:id="@+id/fl_fragment"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"></FrameLayout>
+    <RadioGroup
+        android:orientation="horizontal"
+        android:id="@+id/radio"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_70">
+        <RadioButton
+            android:id="@+id/rb_star"
+            android:checked="true"
+            android:drawableTop="@drawable/main_radio_button_color1"
+            android:gravity="center"
+            android:text="星球"
+            android:button="@null"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <RadioButton
+            android:id="@+id/rb_plaza"
+            android:drawableTop="@drawable/main_radio_button_color2"
+            android:gravity="center"
+            android:text="广场"
+            android:button="@null"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <RadioButton
+            android:id="@+id/rb_chat"
+            android:drawableTop="@drawable/main_radio_button_color3"
+            android:gravity="center"
+            android:text="聊天"
+            android:button="@null"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <RadioButton
+            android:id="@+id/rb_me"
+            android:drawableTop="@drawable/main_radio_button_color4"
+            android:gravity="center"
+            android:text="我的"
+            android:button="@null"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </RadioGroup>
 </RelativeLayout>

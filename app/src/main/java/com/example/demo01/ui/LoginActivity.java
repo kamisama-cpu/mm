@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,16 +25,23 @@ import android.widget.Toast;
 import com.example.demo01.MainActivity;
 import com.example.demo01.R;
 import com.example.fromwork.entity.Constants;
+import com.example.fromwork.utils.LogUtils;
 import com.example.fromwork.utils.SpUtils;
 import com.example.fromwork.view.TouchPictureView;
+
+import cn.bmob.v3.BmobSMS;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.LogInListener;
+import cn.bmob.v3.listener.QueryListener;
 
 /**
  * 登录页
  */
 public class LoginActivity extends AppCompatActivity {
-
-    private EditText btnLoginPhone;
-    private EditText btnVerifyCode;
+    private TextView tvRegister;
+    private EditText etLoginPhone;
+    private EditText etVerifyCode;
     private Button btnLogin;
     private TextView tvUserAgreement;
     private ImageView ivAgreement;
@@ -43,6 +53,11 @@ public class LoginActivity extends AppCompatActivity {
             super.handleMessage(msg);
 
             if (msg.what == 1){
+                String num = (String) msg.obj;
+                btnSend.setText("等待"+"("+num+")");
+            }else if(msg.what == 2){
+                String num = (String) msg.obj;
+                btnSend.setText(num);
 
             }
 
@@ -60,11 +75,12 @@ public class LoginActivity extends AppCompatActivity {
     //初始化控件
     private void initView() {
         btnSend = (Button) findViewById(R.id.btn_send);
-        btnLoginPhone = (EditText) findViewById(R.id.btn_login_phone);
-        btnVerifyCode = (EditText) findViewById(R.id.btn_verify_code);
+        etLoginPhone = (EditText) findViewById(R.id.et_login_phone);
+        etVerifyCode = (EditText) findViewById(R.id.et_verify_code);
         btnLogin = (Button) findViewById(R.id.btn_login);
         tvUserAgreement = (TextView) findViewById(R.id.tv_user_agreement);
         ivAgreement = (ImageView) findViewById(R.id.iv_agreement);
+        tvRegister = (TextView) findViewById(R.id.tv_register);
 
         onClick();
     }
@@ -75,8 +91,17 @@ public class LoginActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(LoginActivity.this, "发送", Toast.LENGTH_SHORT).show();
-                showPopupWindow();
+                String phone = String.valueOf(etLoginPhone.getText());
+                if (TextUtils.isEmpty(phone)){
+                    Toast.makeText(LoginActivity.this, "请输入电话号码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (SpUtils.getInstance().getBoolean(Constants.SP_VERIFY_CODE,true)){
+                    showPopupWindow();
+                }else {
+
+                }
+
             }
         });
 
@@ -84,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
         ivAgreement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Boolean agreement = SpUtils.getInstance().getBoolean(Constants.SP_AGREEMENT, false);
+                Boolean agreement = SpUtils.getInstance().getBoolean(Constants.SP_AGREEMENT, true);
                 if (agreement){
                     SpUtils.getInstance().putBoolean(Constants.SP_AGREEMENT, false);
                     ivAgreement.setImageResource(R.drawable.img_login_yes);
@@ -98,22 +123,56 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Boolean agreement = SpUtils.getInstance().getBoolean(Constants.SP_AGREEMENT, false);
-                if (agreement){
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }
-
+                login();
             }
         });
+        tvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+    //登录
+    private void login() {
+        Boolean agreement = SpUtils.getInstance().getBoolean(Constants.SP_AGREEMENT, true);
+        if (agreement){
+            String phone = String.valueOf(etLoginPhone.getText());
+            String code = String.valueOf(etVerifyCode.getText());
+            if (TextUtils.isEmpty(phone)){
+                Toast.makeText(LoginActivity.this, "请输入电话号码", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (TextUtils.isEmpty(code)){
+                Toast.makeText(LoginActivity.this, "请输入验证码", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            //登录
+//            BmobUser.loginBySMSCode(phone, code, new LogInListener<BmobUser>() {
+//                @Override
+//                public void done(BmobUser bmobUser, BmobException e) {
+//                    if (e == null) {
+//                        Log.e("登录成功", "done: ");
+//                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+//                        startActivity(intent);
+//                    } else {
+//                        Log.e("登录失败", "done: "+e.toString());
+//                        Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+//                        startActivity(intent);
+//                    }
+//                }
+//            });
+            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     //显示图片验证码
     private void showPopupWindow() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // 一个自定义的布局，作为显示的内容
-        View contentView = LayoutInflater.from(this).inflate(
-                R.layout.activity_picture_verify, null);
+        View contentView = LayoutInflater.from(this).inflate(R.layout.activity_picture_verify, null);
         // 设置按钮的点击事件
         TouchPictureView tpv = (TouchPictureView) contentView.findViewById(R.id.tpv);
         builder.setView(contentView);
@@ -122,29 +181,52 @@ public class LoginActivity extends AppCompatActivity {
         tpv.setViewResultLisener(new TouchPictureView.OnViewResultListener() {
             @Override
             public void onResult() {
-                show.dismiss();
-
-                new Thread(new Runnable() {
+                String phone = String.valueOf(etLoginPhone.getText());
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
-                        for (int i = 60 ; i > 0 ; i--){
-                            Message message = new Message();
-                            message.what = 1;
-                            message.obj = i+"";
-                            handler.sendMessage(message);
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+                        BmobSMS.requestSMSCode(phone, "", new QueryListener<Integer>() {
+                            @Override
+                            public void done(Integer smsId, BmobException e) {
+                                if (e == null) {
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            for (int i = 60 ; i > 0 ; i--){
+                                                Message message = new Message();
+                                                message.what = 1;
+                                                message.obj = i+"";
+                                                handler.sendMessage(message);
+                                                SpUtils.getInstance().putBoolean(Constants.SP_VERIFY_CODE,false);
+                                                try {
+                                                    Thread.sleep(1000);
+                                                } catch (InterruptedException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                            SpUtils.getInstance().putBoolean(Constants.SP_VERIFY_CODE,true);
+                                            Message message = new Message();
+                                            message.what = 2;
+                                            message.obj = "发送";
+                                            handler.sendMessage(message);
+                                        }
+                                    }).start();
+                                } else {
+                                    Log.e("发送验证码失败：",""+e.getMessage());
+                                }
                             }
-                        }
-
+                        });
                     }
-                }).start();
+                });
 
+                show.dismiss();
             }
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SpUtils.getInstance().putBoolean(Constants.SP_VERIFY_CODE,true);
+    }
 }
