@@ -1,31 +1,24 @@
 package com.example.demo01.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.demo01.MainActivity;
 import com.example.demo01.R;
+import com.example.fromwork.base.BaseActivity;
 import com.example.fromwork.entity.Constants;
-import com.example.fromwork.utils.LogUtils;
 import com.example.fromwork.utils.SpUtils;
 import com.example.fromwork.view.TouchPictureView;
 
@@ -38,7 +31,7 @@ import cn.bmob.v3.listener.QueryListener;
 /**
  * 登录页
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     private TextView tvRegister;
     private EditText etLoginPhone;
     private EditText etVerifyCode;
@@ -64,16 +57,15 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        initView();
 
+    @Override
+    public int initLayout() {
+        return R.layout.activity_login;
     }
 
     //初始化控件
-    private void initView() {
+    @Override
+    public void initView() {
         btnSend = (Button) findViewById(R.id.btn_send);
         etLoginPhone = (EditText) findViewById(R.id.et_login_phone);
         etVerifyCode = (EditText) findViewById(R.id.et_verify_code);
@@ -84,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
 
         onClick();
     }
+
 
     //点击事件
     private void onClick(){
@@ -149,22 +142,22 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
             //登录
-//            BmobUser.loginBySMSCode(phone, code, new LogInListener<BmobUser>() {
-//                @Override
-//                public void done(BmobUser bmobUser, BmobException e) {
-//                    if (e == null) {
-//                        Log.e("登录成功", "done: ");
-//                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-//                        startActivity(intent);
-//                    } else {
-//                        Log.e("登录失败", "done: "+e.toString());
-//                        Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
-//                        startActivity(intent);
-//                    }
-//                }
-//            });
-            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-            startActivity(intent);
+            BmobUser.loginByAccount(phone, code, new LogInListener<BmobUser>() {
+                @Override
+                public void done(BmobUser bmobUser, BmobException e) {
+                    if (e == null) {
+                        Log.e("登录成功", "done: ");
+                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Log.e("登录失败", "done: "+e.toString());
+                        Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                        startActivity(intent);
+                    }
+                }
+            });
+//            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+//            startActivity(intent);
         }
     }
 

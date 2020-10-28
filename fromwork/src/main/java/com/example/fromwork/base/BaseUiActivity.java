@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
 
 import com.example.fromwork.utils.SystemUIUtils;
 
-public class BaseUiActivity extends BaseActivity {
+public abstract class BaseUiActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -20,6 +20,7 @@ allprojects {
         jcenter()
         maven {url 'https://dl.bintray.com/chaozhouzhang/maven' }
         maven { url "https://jitpack.io" }
+        maven {url  "https://dl.bintray.com/rongcloud/maven"}
     }
 }
 

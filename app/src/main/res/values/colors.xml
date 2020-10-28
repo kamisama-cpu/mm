@@ -7,4 +7,8 @@
 
     <color name="Login_blue_btn">#03A9F4</color>
     <color name="While">#fff</color>
+    <color name="main_random_color">#FFB57B</color>
+    <color name="main_soul_color">#827CE8</color>
+    <color name="main_lot_color">#56A4DA</color>
+    <color name="main_amatory_color">#FFA281</color>
 </resources>

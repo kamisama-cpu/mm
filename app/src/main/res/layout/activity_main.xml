@@ -16,7 +16,7 @@
         android:id="@+id/radio"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_70">
+        android:layout_height="@dimen/dp_50">
         <RadioButton
             android:id="@+id/rb_star"
             android:checked="true"

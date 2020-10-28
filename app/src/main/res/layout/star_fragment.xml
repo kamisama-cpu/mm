@@ -3,22 +3,151 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#000"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50">
+        <TextView
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_25"
+            android:text="鸢一折纸"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_star_add"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/img_add"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20" />
+        <ImageView
+            android:id="@+id/iv_camera"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_toLeftOf="@id/iv_star_add"
+            android:layout_centerVertical="true"
+            android:src="@drawable/img_camera"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_32" />
+    </RelativeLayout>
     <com.moxun.tagcloudlib.view.TagCloudView
-
+        android:layout_below="@id/rl"
         android:id="@+id/tcv"
 
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
 
-        android:layout_height="wrap_content"
+        android:layout_height="500dp"
 
         android:layout_margin="10dp"
 
         app:autoScrollMode="uniform"
 
-        app:radiusPercent="0.6"
+        app:radiusPercent="0.8"
 
-        app:scrollSpeed="3" />
+        app:scrollSpeed="1" />
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_margin="@dimen/dp_10"
+            android:id="@+id/rl_random"
+            android:background="@drawable/star_button_random_background"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="@dimen/dp_100">
+            <ImageView
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_star_card_1"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_50" />
+            <TextView
+                android:layout_marginTop="@dimen/dp_50"
+                android:textSize="@dimen/sp_15"
+                android:text="随机"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_margin="@dimen/dp_10"
+            android:id="@+id/rl_soul"
+            android:background="@drawable/star_button_soul_background"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="@dimen/dp_100">
+            <ImageView
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_star_card_2"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_50" />
+            <TextView
+                android:layout_marginTop="@dimen/dp_50"
+                android:textSize="@dimen/sp_15"
+                android:text="灵魂"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_margin="@dimen/dp_10"
+            android:id="@+id/rl_lot"
+            android:background="@drawable/star_button_lot_background"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="@dimen/dp_100">
+            <ImageView
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_star_card_3"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_50" />
+            <TextView
+                android:layout_marginTop="@dimen/dp_50"
+                android:textSize="@dimen/sp_15"
+                android:text="缘分"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_margin="@dimen/dp_10"
+            android:id="@+id/rl_amatory"
+            android:background="@drawable/star_button_amatory_background"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="@dimen/dp_100">
+            <ImageView
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/img_star_card_4"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_50" />
+            <TextView
+                android:layout_marginTop="@dimen/dp_50"
+                android:textSize="@dimen/sp_15"
+                android:text="恋爱"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+    </LinearLayout>
+
 
 </RelativeLayout>

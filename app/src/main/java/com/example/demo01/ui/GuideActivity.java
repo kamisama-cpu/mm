@@ -9,18 +9,14 @@ import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.graphics.drawable.AnimationDrawable;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,9 +28,6 @@ import com.example.fromwork.entity.Constants;
 import com.example.fromwork.manager.MediaPlayerManager;
 import com.example.fromwork.utils.SpUtils;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,23 +44,17 @@ public class GuideActivity extends BaseUiActivity {
     private String[] permissiones=new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
     private List<View> viewPagerData = new ArrayList<>();
     private List<String> muiscList = new ArrayList<>();
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guide);
-        getMusic();
-        checkPermission();
-        initData();
-        initView();
 
-    }
 
     private void initData(){
         SpUtils.getInstance().initSp(this);
         SpUtils.getInstance().putBoolean(Constants.SP_IS_FIRST_APP,false);
     }
 
-    private void initView() {
+    public void initView() {
+        getMusic();
+        checkPermission();
+        initData();
         mViewPager = (ViewPager) findViewById(R.id.mViewPager);
         ivMusicSwitch = (ImageView) findViewById(R.id.iv_music_switch);
         tvGuideSkip = (TextView) findViewById(R.id.tv_guide_skip);
@@ -154,6 +141,11 @@ public class GuideActivity extends BaseUiActivity {
 
     }
 
+    @Override
+    public int initLayout() {
+        return R.layout.activity_guide;
+    }
+
     private void getMusic(){
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         ContentResolver contentResolver = getContentResolver();
@@ -213,5 +205,6 @@ public class GuideActivity extends BaseUiActivity {
                 Toast.makeText(this,"申请失败",Toast.LENGTH_SHORT).show();
         }
     }
+
 
 }

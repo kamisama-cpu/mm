@@ -1,13 +1,12 @@
 package com.example.demo01.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.example.demo01.MainActivity;
 import com.example.demo01.R;
+import com.example.fromwork.base.BaseActivity;
+import com.example.fromwork.cloud.CloudManager;
 import com.example.fromwork.entity.Constants;
 import com.example.fromwork.utils.SpUtils;
 
@@ -15,15 +14,17 @@ import com.example.fromwork.utils.SpUtils;
 /**
  * 启动页
  */
-public class IndexActivity extends AppCompatActivity {
-
+public class IndexActivity extends BaseActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_index);
-        SpUtils.getInstance().initSp(this);
+    public void initView() {
         startMain();
     }
+
+    @Override
+    public int initLayout() {
+        return R.layout.activity_index;
+    }
+
 
     /*
         主要来判断接下来要跳转那个页面
@@ -47,9 +48,9 @@ public class IndexActivity extends AppCompatActivity {
                     intent.setClass(IndexActivity.this,LoginActivity.class);
                 }else {
                     //不是第一次判断是否登录过
-                    boolean token = SpUtils.getInstance().getBoolean(Constants.SP_TOKE, false);
+                    String token = SpUtils.getInstance().getString(Constants.SP_TOKE, "");
                     //判断是不是登录过 token有数据就是登录过 空就是没有登录过
-                    if (token){
+                    if (TextUtils.isEmpty(token)){
                         //跳转到主页面
                         intent.setClass(IndexActivity.this, MainActivity.class);
                     }else {
@@ -64,5 +65,6 @@ public class IndexActivity extends AppCompatActivity {
 
 
     }
+
 
 }

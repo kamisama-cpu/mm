@@ -1,36 +1,27 @@
 package com.example.demo01.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.demo01.R;
-import com.example.fromwork.bomb.User;
+import com.example.fromwork.base.BaseActivity;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
-import cn.bmob.v3.listener.SaveListener;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button button1;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        initView();
+    public int initLayout() {
+        return R.layout.activity_register;
     }
-
-    private void initView() {
+    @Override
+    public void initView() {
         etUsername = (EditText) findViewById(R.id.et_username);
         etPassword = (EditText) findViewById(R.id.et_password);
         button1 = (Button) findViewById(R.id.button1);
@@ -45,6 +36,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 
     /**
